@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-pod-config         # Renamed for consistency with your slide
+data:
+  environment: "NUST-ASE-Demo"
+  professor: "Lecture-12"
+  

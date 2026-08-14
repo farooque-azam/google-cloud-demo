@@ -1,0 +1,23 @@
+artifact_path: /home/farooque_azam/mlflow-demo/mlruns/2/models/m-161f1df6cda74a14855ffa3df2b04a2c/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.11.1
+model_id: m-161f1df6cda74a14855ffa3df2b04a2c
+model_size_bytes: 879
+model_uuid: m-161f1df6cda74a14855ffa3df2b04a2c
+prompts: null
+run_id: 484da6be374b4982a50d9d8d7fadf7e7
+utc_time_created: '2026-04-26 19:23:10.935457'

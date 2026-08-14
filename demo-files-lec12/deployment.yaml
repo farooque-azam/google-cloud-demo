@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-pod                # This makes the Deployment name match your slide
+spec:
+  replicas: 1                 # Keep it to 1 so there is only one "my-pod" to look at
+  selector:
+    matchLabels:
+      app: my-pod
+  template:
+    metadata:
+      labels:
+        app: my-pod           # This label is what the Service will look for
+    spec:
+      containers:
+      - name: my-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80

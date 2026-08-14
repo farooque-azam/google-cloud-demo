@@ -1,0 +1,14 @@
+replicas: 3  # Changed to 3 to match your Dev overlay demo
+
+configmap:
+  data:
+    CUSTOM_HEADER: 'This is on the DEV environment!'
+
+# This section ensures Kustomize and Helm "agree" on the cluster state
+resources:
+  requests:
+    memory: "52Mi"
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "100m"

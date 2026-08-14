@@ -1,0 +1,50 @@
+Your test confirms that fabled-skein-412514 is indeed scheduled for deletion (lifecycleState: DELETE_REQUESTED). Any cluster or data inside it will be permanently removed soon.
+
+Since you only need this for a class demo and not for commercial use, Scenario 2 (running entirely for free inside Cloud Shell) is the perfect solution for you.
+
+Here are the answers to your questions and how to set up your free demo:
+
+1. Do I need a Google Cloud project for Scenario 2?
+No, you do not need a paid GKE project or active billing.
+
+Cloud Shell itself is a free utility. While you must have a project selected to use Cloud Shell (in this case, your active project gen-lang-client-0441613979), you do not need to pay anything, enable billing, or create any cloud infrastructure like GKE.
+Everything runs locally on the free virtual machine behind your Cloud Shell.
+2. What if I change the project name to my current Gemini project (gen-lang-client-0441613979)?
+If you want to keep using Scenario 1 (GKE) under your new project:
+
+You would have to manually create a new GKE cluster inside gen-lang-client-0441613979 first, which requires enabling billing.
+Unless you have free credits or want to pay for a GKE cluster, we highly recommend shifting to Scenario 2 instead.
+3. How to run your Argo CD demo for free (Scenario 2)
+You can run your demo entirely inside Cloud Shell using Minikube (a local, lightweight Kubernetes cluster that runs in your free Cloud Shell VM).
+
+To do this, run these commands in your Cloud Shell terminal:
+
+Step A: Start your local Kubernetes cluster
+minikube start
+Generated code may be subject to licence restrictions not shown here. Use code with care.Learn more 
+
+(This will boot up a local single-node Kubernetes cluster inside your Cloud Shell environment for free).
+
+Step B: Install Argo CD inside your local cluster
+Create a namespace for Argo CD:
+kubectl create namespace argocd
+Generated code may be subject to licence restrictions not shown here. Use code with care.Learn more 
+
+Install Argo CD:
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+Generated code may be subject to licence restrictions not shown here. Use code with care.Learn more 
+
+Step C: Access the Argo CD UI for your demo
+To show the Argo CD interface during your class demo:
+
+Port-forward the Argo CD service:
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+Generated code may be subject to licence restrictions not shown here. Use code with care.Learn more 
+
+Click the Web Preview button (the web-and-pencil icon at the top right of your Cloud Shell window).
+Select Preview on port 8080. This will open the Argo CD login page in a new tab!
+This setup is completely free, safe from project deletions, and perfect for a classroom demonstration.
+
+Would you like help adapting your .customize_environment script or your Kubernetes manifests to run smoothly on this local Minikube cluster?
+
+Base on this info i will try to confugure my demo for ASE-Fall26 on free cloud shell

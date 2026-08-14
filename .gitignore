@@ -1,0 +1,33 @@
+# Logs
+*.log
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Credentials and Configs (CRITICAL - DO NOT COMMIT)
+.config/
+.kube/
+.gemini/
+.cloudshell/
+.codeoss/
+.npm/
+.rustup/
+.cache/
+.vscode/
+
+# Cloud Shell Home Directory System Files
+.bash_history
+.bashrc
+.customize_environment
+.gitconfig
+.profile
+.ipython/
+.local/
+.sudo_as_admin_successful
+bin/
+
+# System files
+.DS_Store

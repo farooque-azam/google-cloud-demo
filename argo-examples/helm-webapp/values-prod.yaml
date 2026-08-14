@@ -1,0 +1,14 @@
+replicas: 3  # To match Kustomize Dev Overlay
+
+configmap:
+  data:
+    CUSTOM_HEADER: 'Deployed via HELM (Dev Environment)'
+
+resources:
+  requests:
+    memory: "52Mi"  # MATCHED to your Kustomize fix
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "100m"
+    
