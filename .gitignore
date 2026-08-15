@@ -8,6 +8,7 @@ __pycache__/
 *$py.class
 
 # Credentials and Configs (CRITICAL - DO NOT COMMIT)
+.git-credentials
 .config/
 .kube/
 .gemini/
