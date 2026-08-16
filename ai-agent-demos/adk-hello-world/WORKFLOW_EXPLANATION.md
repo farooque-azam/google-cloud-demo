@@ -79,3 +79,28 @@ from . import agent
 ### Why is this necessary?
 In Python, any folder containing an `__init__.py` file is treated as a **module** (or package). 
 If the file were empty, importing the `greeting_app` folder wouldn't automatically load the files inside it. By including `from . import agent`, you ensure that whenever the ADK Runner imports the `greeting_app` module, it automatically executes and loads your `root_agent` configuration from `agent.py`.
+
+## Running the ADK Web UI
+
+ADK also provides a web-based user interface to interact with your agent visually, track traces, and view conversation history.
+
+### 1. Installations Needed
+To use the Web UI, ensure your virtual environment is activated and you have installed the `[ui]` extras for the ADK package.
+
+```bash
+# Ensure your virtual environment is active
+source .venv/bin/activate
+
+# Install the UI extras (this installs dependencies like FastAPI and Uvicorn)
+pip install "google-adk[ui]"
+```
+
+### 2. Invoking the Web UI
+Once installed, you can start the development server using the ADK CLI. Simply run the `dev` command and point it to your app directory:
+
+```bash
+adk dev greeting_app
+```
+
+This command boots up the local server (typically at `http://127.0.0.1:8080`). 
+You can then open that URL in your web browser. The UI allows you to visually interact with your `root_agent`, inspect the graph execution, and review the event stream and logs.
