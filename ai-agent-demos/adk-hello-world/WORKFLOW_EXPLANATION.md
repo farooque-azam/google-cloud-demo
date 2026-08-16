@@ -63,3 +63,19 @@ Installing `google-adk` automatically provided an executable command called `adk
 *   You use the CLI to scaffold projects (`adk create`) and to launch the Runner (`adk run`).
 
 By activating the environment, your terminal knows exactly where to find the `adk` command and the required source files to execute your agent!
+
+## Python Package Initialization (`__init__.py`)
+
+When you generated the app, ADK created an `__init__.py` file containing a relative import:
+```python
+from . import agent
+```
+
+### What does this syntax mean?
+*   `from`: Indicates we are importing something from a specific location.
+*   `.` (dot): Means **"the current directory"** (the same folder where `__init__.py` lives).
+*   `import agent`: Tells Python to look for `agent.py` in that directory and load it.
+
+### Why is this necessary?
+In Python, any folder containing an `__init__.py` file is treated as a **module** (or package). 
+If the file were empty, importing the `greeting_app` folder wouldn't automatically load the files inside it. By including `from . import agent`, you ensure that whenever the ADK Runner imports the `greeting_app` module, it automatically executes and loads your `root_agent` configuration from `agent.py`.
