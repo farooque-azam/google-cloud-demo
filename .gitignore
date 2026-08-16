@@ -1,4 +1,5 @@
 # Logs
+.adk/
 *.log
 
 # Python
