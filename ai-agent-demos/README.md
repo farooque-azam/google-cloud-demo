@@ -2,6 +2,30 @@
 
 Welcome to the **AI Agent Demos** repository! This workspace contains three distinct subprojects that demonstrate different methods of building AI agents using Google's tools. 
 
+## Getting Started & Setup
+
+If you have forked this repository to run the demos yourself, you must first set up your environment and obtain a free API key to authenticate with the Gemini models.
+
+### 1. Get a Gemini API Key
+1. Go to **[Google AI Studio](https://aistudio.google.com/)** and sign in with your Google account.
+2. Click on **"Get API key"** in the left navigation menu.
+3. Click **"Create API key"** and copy the generated key.
+
+### 2. Configure Your Environment
+Create a `.env` file in the root `ai-agent-demos/` directory to securely store your key.
+
+```bash
+cd ~/ai-agent-demos
+touch .env
+```
+
+Open the newly created `.env` file and add the following line, replacing the placeholder with your actual key:
+```env
+GOOGLE_API_KEY="your_copied_api_key_here"
+```
+*(Note: Do not commit your `.env` file to GitHub! It is already added to `.gitignore` to prevent accidental uploads).*
+
+### 3. Activate Virtual Environment
 Before running any of the projects, ensure you have your virtual environment activated from the root directory:
 ```bash
 cd ~/ai-agent-demos
