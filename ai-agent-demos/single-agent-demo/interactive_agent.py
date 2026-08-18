@@ -31,6 +31,7 @@ import time
 import socket
 import platform
 import datetime
+from dotenv import load_dotenv, find_dotenv
 
 # Import the official Google GenAI SDK and its configuration types
 from google import genai
@@ -109,6 +110,7 @@ MODELS = ["gemini-3.6-flash", "gemini-3.5-flash"]
 # STEP 2: MAIN APPLICATION LOGIC
 # ===========================================================================
 def main():
+    load_dotenv(find_dotenv())
     # -----------------------------------------------------------------------
     # 2a. Check API Key Authentication
     # -----------------------------------------------------------------------

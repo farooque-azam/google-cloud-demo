@@ -34,17 +34,19 @@ root_agent = Agent(
 ### 3. Execution via the ADK Runner
 ADK uses a built-in runner engine to execute the agent. You don't write the `while True:` input loop yourself.
 
-When you run the command:
+Assuming your terminal is in the parent directory (`~/ai-agent-demos/adk-hello-world/`), you can run a single query like this:
 ```bash
 adk run greeting_app "Hello! I am just starting out with ADK 2.0."
 ```
+*(If you are already inside the `greeting_app` folder, you would use `adk run . "Hello..."` instead).*
+
 1.  **Context Setup**: The ADK Runner loads `greeting_app/agent.py` and initializes the `root_agent`.
 2.  **State Management**: It automatically handles session tracking. Notice in the terminal output that a `Session ID: <UUID>` is generated. ADK manages the history of the conversation tied to this ID.
 3.  **Model Invocation**: The Runner sends the user's query, along with the agent's instructions and conversation history, to the Gemini model.
 4.  **Response Handling**: The model's response is streamed back to the terminal automatically.
 
 ### 4. Interactive Mode
-If you run `adk run greeting_app` *without* a trailing prompt, the ADK Runner boots into an interactive terminal session, handling user input, history preservation, and error recovery automatically.
+If you run `adk run greeting_app` (or `adk run .` if you are already inside the folder) *without* a trailing prompt, the ADK Runner boots into an interactive terminal session, handling user input, history preservation, and error recovery automatically.
 
 ## Summary
 The ADK 2.0 workflow focuses on **declarative agent design**. You define *what* the agent is and *what tools* it has in `agent.py`, and the ADK execution engine (via the CLI or API server) handles the complex routing, history, and state management required to make it run.
@@ -96,11 +98,19 @@ pip install "google-adk[ui]"
 ```
 
 ### 2. Invoking the Web UI
-Once installed, you can start the development server using the ADK CLI. Simply run the `dev` command and point it to your app directory:
+To run the Web UI, you must use the `adk web` command and point it to the directory containing your agent (e.g., `greeting_app`). 
+
+Assuming you are in the parent directory (`~/ai-agent-demos/adk-hello-world/`), run:
 
 ```bash
-adk dev greeting_app
+adk web --host 0.0.0.0 --allow_origins="*" greeting_app
 ```
 
-This command boots up the local server (typically at `http://127.0.0.1:8080`). 
-You can then open that URL in your web browser. The UI allows you to visually interact with your `root_agent`, inspect the graph execution, and review the event stream and logs.
+*If you are already inside the `greeting_app` folder, you would use `.` instead of `greeting_app`.*
+
+**Understanding the Command Flags:**
+When running this server on a local machine, `adk web greeting_app` is sufficient. However, because we are running this in a remote Google Cloud Shell environment, we need to bypass network proxy restrictions:
+*   `--host 0.0.0.0`: By default, the server only listens to internal traffic on `127.0.0.1` (localhost). Changing the host to `0.0.0.0` tells the server to listen for incoming connections from *any* network interface, allowing the Cloud Shell web proxy to connect to it.
+*   `--allow_origins="*"`: By default, the server's CORS (Cross-Origin Resource Sharing) policy blocks requests that don't come from `localhost`. Because the Cloud Shell web preview uses a dynamic external URL (e.g., `https://8000-cs...`), the server will block the Javascript UI files from loading with a `403 Forbidden` error. Setting the origin to `*` tells the server to trust and allow requests from any domain name.
+
+Once the command is running, you can click the **Web Preview** button in Cloud Shell and select **Preview on port 8000** to view the UI.

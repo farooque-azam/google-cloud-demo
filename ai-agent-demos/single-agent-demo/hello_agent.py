@@ -16,7 +16,7 @@ Key Concept - Function Calling (Agent Tools):
 How to Run:
   1. Get a free API Key from Google AI Studio: https://aistudio.google.com/
   2. Set the environment variable:
-       export GEMINI_API_KEY="your_api_key_here"
+       export GOOGLE_API_KEY="your_api_key_here"
   3. Execute the script:
        python hello_agent.py
 =============================================================================
@@ -24,6 +24,7 @@ How to Run:
 
 import os
 import datetime
+from dotenv import load_dotenv, find_dotenv
 
 # Import the Google GenAI SDK
 from google import genai
@@ -46,6 +47,7 @@ def get_current_time() -> str:
 # STEP 2: Main Application Logic
 # ---------------------------------------------------------------------------
 def main():
+    load_dotenv(find_dotenv())
     # 2a. Retrieve the API key from environment variables for security
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -62,12 +64,9 @@ def main():
     print("🤖 Sending prompt to Gemini Agent...")
     print("   User Prompt: 'What time is it right now? Use your tool to check.'\n")
 
-    response = client.models.generate_content(
+    chat = client.chats.create(
         # Specify the model. 'gemini-3.5-flash' is fast and supports tool execution.
         model="gemini-3.5-flash",
-
-        # The input prompt from the user
-        contents="What time is it right now? Use your tool to check.",
 
         # Configure agent behavior, system instructions, and available tools
         config=types.GenerateContentConfig(
@@ -82,6 +81,8 @@ def main():
             )
         )
     )
+
+    response = chat.send_message("What time is it right now? Use your tool to check.")
 
     # 2d. Print the agent's final text output
     print("--- 💬 Agent Response ---")

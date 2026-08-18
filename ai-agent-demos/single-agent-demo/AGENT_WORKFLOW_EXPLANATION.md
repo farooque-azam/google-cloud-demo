@@ -123,10 +123,34 @@ If Gemini experiences temporary server congestion (`503 UNAVAILABLE` or `500 INT
 
 ---
 
-## 5. Verification Commands
+## 5. Running the Agents
 
-To test the agent with full tool logging in your Cloud Shell terminal:
+These single-agent demos use the raw Python `google-genai` SDK and must be run as standard Python scripts from within your active virtual environment.
+
+### Prerequisites
+
+Ensure you are in the correct directory and your virtual environment is active:
 
 ```bash
-python3 ai-agent-demos/interactive_agent.py
+# Navigate to the project directory
+cd ~/ai-agent-demos/single-agent-demo
+
+# Activate the virtual environment
+source ../.venv/bin/activate
+```
+
+### Running the Basic Agent (`hello_agent.py`)
+
+This script demonstrates a basic one-off execution of an agent that uses a custom tool (function calling).
+
+```bash
+python hello_agent.py
+```
+
+### Running the Interactive Agent (`interactive_agent.py`)
+
+To test the interactive agent with full tool logging, error recovery, and a continuous chat loop:
+
+```bash
+python interactive_agent.py
 ```
