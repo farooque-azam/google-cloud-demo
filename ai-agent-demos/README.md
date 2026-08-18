@@ -25,7 +25,18 @@ GOOGLE_API_KEY="your_copied_api_key_here"
 ```
 *(Note: Do not commit your `.env` file to GitHub! It is already added to `.gitignore` to prevent accidental uploads).*
 
-### 3. Activate Virtual Environment
+### 3. Install Dependencies
+Before running the projects, you must install the required Python packages into your virtual environment.
+
+```bash
+cd ~/ai-agent-demos
+source .venv/bin/activate
+pip install "google-adk[ui]" google-genai
+```
+
+*(Note: The `[ui]` extra is required to run the ADK Web interface).*
+
+### 4. Activate Virtual Environment
 Before running any of the projects, ensure you have your virtual environment activated from the root directory:
 ```bash
 cd ~/ai-agent-demos
