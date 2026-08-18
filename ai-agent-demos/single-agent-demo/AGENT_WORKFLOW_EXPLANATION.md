@@ -6,7 +6,7 @@ This document explains the end-to-end architecture, tool execution (function cal
 
 ## 1. Executive Summary
 
-The AI Agent combines the reasoning power of **Google's Gemini 3.6 Flash** with the precise, deterministic execution of **Local Python Code**. 
+The AI Agent combines the reasoning power of **Google's Gemini 3.5 Flash Lite** with the precise, deterministic execution of **Local Python Code**. 
 
 * **The Problem:** Large Language Models (LLMs) cannot check real-time clocks or server locations, and often make mistakes when calculating complex math.
 * **The Solution:** **Function Calling (Tools)**. Gemini acts as the "brain" that decides *when* a tool is needed, and your local Python VM acts as the "hands" that executes the exact code.
@@ -21,7 +21,7 @@ sequenceDiagram
     actor User as 👤 User (Terminal)
     participant CLI as 💻 interactive_agent.py
     participant SDK as 📦 google-genai SDK
-    participant Gemini as ☁️ Gemini 3.6/3.5 Flash (Cloud)
+    participant Gemini as ☁️ Gemini 3.5 Flash Lite (Cloud)
     participant Tools as 🛠️ Python Tools (get_current_time / calculate)
 
     User->>CLI: Types Prompt (e.g., "how much is 3+4*5?")
@@ -65,7 +65,7 @@ graph TD
     end
 
     subgraph GoogleCloud ["☁️ Google AI Studio Infrastructure"]
-        Model1["Gemini 3.6 Flash<br/>(Primary Model)"]
+        Model1["Gemini 3.5 Flash Lite<br/>(Primary Model)"]
         Model2["Gemini 3.5 Flash<br/>(Fallback Model on 503/500)"]
     end
 
@@ -87,7 +87,7 @@ graph TD
 When `get_chat()` initializes:
 ```python
 client.chats.create(
-    model="gemini-3.6-flash",
+    model="gemini-3.5-flash-lite",
     config=types.GenerateContentConfig(
         tools=[get_current_time, calculate],
         system_instruction="..."

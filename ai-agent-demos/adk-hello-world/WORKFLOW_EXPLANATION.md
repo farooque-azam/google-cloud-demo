@@ -18,12 +18,12 @@ This creates a standardized folder structure:
 ### 2. Defining the Agent (`agent.py`)
 In `agent.py`, we import the base `Agent` class from `google.adk.agents.llm_agent`.
 We define our `root_agent` declaratively by passing parameters:
-*   `model`: The specific LLM to use (e.g., `gemini-3.5-flash`).
+*   `model`: The specific LLM to use (e.g., `gemini-3.5-flash-lite`).
 *   `instruction`: The system prompt that dictates the agent's persona and behavior.
 
 ```python
 root_agent = Agent(
-    model='gemini-3.5-flash',
+    model='gemini-3.5-flash-lite',
     name='root_agent',
     description='A helpful assistant for user questions.',
     instruction='Answer user questions to the best of your knowledge',

@@ -103,7 +103,7 @@ def calculate(expression: str) -> str:
 
 
 # List of primary and backup models for resilient fallback
-MODELS = ["gemini-3.6-flash", "gemini-3.5-flash"]
+MODELS = ["gemini-3.5-flash-lite", "gemini-3.5-flash"]
 
 
 # ===========================================================================

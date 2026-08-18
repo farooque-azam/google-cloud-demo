@@ -38,7 +38,7 @@ def calculate(expression: str) -> str:
         return f"Error evaluating expression '{expression}': {str(e)}"
 
 root_agent = Agent(
-    model='gemini-3.5-flash',
+    model='gemini-3.5-flash-lite',
     name='root_agent',
     description='A helpful interactive AI Assistant.',
     instruction=(

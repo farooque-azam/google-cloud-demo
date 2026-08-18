@@ -66,7 +66,7 @@ def main():
 
     chat = client.chats.create(
         # Specify the model. 'gemini-3.5-flash' is fast and supports tool execution.
-        model="gemini-3.5-flash",
+        model="gemini-3.5-flash-lite",
 
         # Configure agent behavior, system instructions, and available tools
         config=types.GenerateContentConfig(
@@ -87,6 +87,14 @@ def main():
     # 2d. Print the agent's final text output
     print("--- 💬 Agent Response ---")
     print(response.text)
+    
+    print("\n--- 📊 Token Usage ---")
+    if hasattr(response, 'usage_metadata') and response.usage_metadata:
+        print(f"Prompt Tokens: {response.usage_metadata.prompt_token_count}")
+        print(f"Candidate Tokens: {response.usage_metadata.candidates_token_count}")
+        print(f"Total Tokens: {response.usage_metadata.total_token_count}")
+    else:
+        print("Usage metadata not available.")
 
 
 # Standard Python entry point

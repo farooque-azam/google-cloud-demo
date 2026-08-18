@@ -5,7 +5,7 @@ from google.adk.agents.llm_agent import Agent
 # The ADK Runner (invoked via `adk run`) handles the session, memory, and execution flow.
 root_agent = Agent(
     # Specify the underlying LLM model to power this agent.
-    model='gemini-3.5-flash',
+    model='gemini-3.5-flash-lite',
     
     # Internal name for the agent (useful when building multi-agent workflows).
     name='root_agent',
