@@ -2,6 +2,11 @@
 
 Welcome to the **AI Agent Demos** repository! This workspace contains three distinct subprojects that demonstrate different methods of building AI agents using Google's tools. 
 
+## Reference Materials
+These examples are inspired by the following Google Cloud Tech tutorials:
+- [Video 1: AI agent design patterns](https://youtu.be/GDm_uH6VxPY)
+- [Video 2: 3 Advanced AI agent design patterns](https://youtu.be/89KKm_a4M7A)
+
 ## Getting Started & Setup
 
 If you have forked this repository to run the demos yourself, you must first set up your environment and obtain a free API key to authenticate with the Gemini models.
@@ -45,29 +50,29 @@ source .venv/bin/activate
 
 ---
 
-## 1. ADK Hello World (`adk-hello-world`)
+## 1. Basic Agent Pattern (`basic_agent_pattern`)
 **Brief Intro:** A foundational "Hello World" application built using Google's **Agent Development Kit (ADK) 2.0**. It demonstrates the basics of declarative agent design and uses a standard Python module package structure (`__init__.py` explicitly loads the agent).
 
 **Run Instructions:**
 ```bash
-cd adk-hello-world/greeting_app
+cd basic_agent_pattern/greeting_app
 adk run .                                          # Run in Terminal
 adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
 ```
-*📖 For a detailed explanation of the workflow and CLI commands, see: `adk-hello-world/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of the workflow and CLI commands, see: `basic_agent_pattern/WORKFLOW_EXPLANATION.md`*
 
 ---
 
-## 2. ADK Temperature & Calculator Demo (`adk_temp_calc_demo`)
+## 2. Tool Calling Pattern (`tool_calling_pattern`)
 **Brief Intro:** A more advanced ADK 2.0 agent that implements **custom tools (function calling)** to calculate mathematical expressions and retrieve real-time server information. It demonstrates a lightweight "flat directory" structure where the ADK runner automatically scans for the agent file.
 
 **Run Instructions:**
 ```bash
-cd adk_temp_calc_demo
+cd tool_calling_pattern
 adk run .                                          # Run in Terminal
 adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
 ```
-*📖 For a detailed explanation of this project and the structural differences, see: `adk_temp_calc_demo/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of this project and the structural differences, see: `tool_calling_pattern/WORKFLOW_EXPLANATION.md`*
 
 ---
 

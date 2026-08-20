@@ -34,7 +34,7 @@ root_agent = Agent(
 ### 3. Execution via the ADK Runner
 ADK uses a built-in runner engine to execute the agent. You don't write the `while True:` input loop yourself.
 
-Assuming your terminal is in the parent directory (`~/ai-agent-demos/adk-hello-world/`), you can run a single query like this:
+Assuming your terminal is in the parent directory (`~/ai-agent-demos/basic_agent_pattern/`), you can run a single query like this:
 ```bash
 adk run greeting_app "Hello! I am just starting out with ADK 2.0."
 ```
@@ -100,7 +100,7 @@ pip install "google-adk[ui]"
 ### 2. Invoking the Web UI
 To run the Web UI, you must use the `adk web` command and point it to the directory containing your agent (e.g., `greeting_app`). 
 
-Assuming you are in the parent directory (`~/ai-agent-demos/adk-hello-world/`), run:
+Assuming you are in the parent directory (`~/ai-agent-demos/basic_agent_pattern/`), run:
 
 ```bash
 adk web --host 0.0.0.0 --allow_origins="*" greeting_app
