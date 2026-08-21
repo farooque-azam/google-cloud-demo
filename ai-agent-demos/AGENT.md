@@ -21,3 +21,6 @@ This project serves as a monorepo for all AI Agent demonstrations. To keep the p
 - **Sequential Naming**: Every new project folder must be prefixed with a sequence number that corresponds to its order in the main `README.md` (e.g., `single_agent_pattern_1`, `sequential_agent_pattern_2`).
 - **Local Explanation**: Create a dedicated explanation markdown file (e.g., `WORKFLOW_EXPLANATION.md`) inside every new project folder detailing how it works and how to run it.
 - **Main README**: Always add a brief summary and run instructions for the new project to the main root `README.md` file, ensuring the numbering stays consistent.
+
+## 5. Testing Terminology
+- **End-to-End (E2E) Execution:** Whenever the user asks to "test" the project or code, it strictly means performing an **End-to-End Test** (or full execution test). This requires actually running the application (for instance, executing `adk run .` with a test prompt via CLI, or running an integration script) to verify that the entire workflow succeeds without runtime errors, rather than merely checking syntax or verifying Python imports.
