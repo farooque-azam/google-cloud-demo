@@ -15,7 +15,7 @@ transport_agent = Agent(
     tools=[get_transit_directions]
 )
 
-agent = SequentialAgent(
+root_agent = SequentialAgent(
     name="trip_planner",
     description="You are a trip planner. First find a restaurant, then provide directions.",
     sub_agents=[food_agent, transport_agent]
