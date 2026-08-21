@@ -3,3 +3,4 @@
 .env
 .adk/
 __pycache__/
+*.evalset.json
