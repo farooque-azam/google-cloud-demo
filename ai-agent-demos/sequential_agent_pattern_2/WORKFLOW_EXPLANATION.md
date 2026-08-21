@@ -1,27 +1,39 @@
 # Sequential Agent Pattern
 
+![Sequential Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-sequential.svg)
+
 This directory demonstrates Pattern 2 from the AI Agent Design Patterns video: the **Sequential Agent**.
 
-n![Sequential Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-sequential.svg)
-
 ## Overview
-The Sequential Pattern uses an "assembly line" approach where specialized agents work in a fixed, predictable order. The output of one agent serves as the input for the next. This provides high reliability and control.
+The Sequential Pattern uses an "assembly line" approach where specialized agents or nodes work in a fixed, predictable order. The output of one agent serves as the input for the next, providing high reliability and control.
 
 ## Use Case: Trip Planning
-In this example, we replicate the video's trip planning scenario:
-1. **Food Agent**: Executes first to search for a dining option based on the user's initial input (e.g. location and food preference).
-2. **Transportation Agent**: Executes second, taking the dining location determined by the first agent, and provides travel directions from the start location.
+In this example, we replicate the video's trip planning scenario. This project implements the sequential flow by chaining two LLM agents using ADK's `Workflow` API:
+1. **Food Agent**: Executes first, takes the user's input, and searches for a dining option.
+2. **Transportation Agent**: Executes second, reading the selected restaurant, gets directions, and returns the final combined response to the user.
 
 ## Code Structure
-- `tools.py`: Contains our mock tools (`find_restaurant` and `get_transit_directions`).
-- `agent.py`: Defines the two specialized agents and connects them using ADK's `sequential` workflow function.
+- `tools.py`: Contains our mock tools (`find_restaurant`, `get_transit_directions`).
+- `agent.py`: Defines the two agents and strictly connects them in a linear execution graph (`START -> food_agent -> transport_agent`) using `google.adk.workflow.Workflow`.
 
 ## How to Run
+
+To test this agent in the terminal (CLI):
 ```bash
-cd ~/ai-agent-demos/sequential_agent_pattern_2
-adk run .
+cd ~/ai-agent-demos
+source .venv/bin/activate
+cd sequential_agent_pattern_2
+adk run . "I want to eat pizza give me pizza shop"
 ```
-You can prompt it with: "I'm starting at my house in downtown and I want to eat pizza."
+
+To view the strict sequential graph visually, launch the ADK Web UI:
+```bash
+cd ~/ai-agent-demos
+source .venv/bin/activate
+cd sequential_agent_pattern_2
+adk web --host 0.0.0.0 --allow_origins="*" .
+```
+*(Click the provided preview link in Cloud Shell once the server starts).*
 
 ## Pros & Cons
 
