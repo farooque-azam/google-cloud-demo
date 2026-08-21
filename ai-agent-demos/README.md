@@ -65,6 +65,12 @@ cd ~/ai-agent-demos
 source .venv/bin/activate
 ```
 
+### 5. Running the Agents (CLI vs Web UI)
+The Agent Development Kit (ADK) provides two main ways to interact with your agents:
+
+1. **Terminal CLI (`adk run`)**: This is the fastest way to test your agent. Simply navigate to the project directory and execute `adk run .`. You can then interact with the agent directly in your command line.
+2. **Web Interface (`adk web`)**: If you prefer a visual chat interface, you can launch a local web server by running `adk web --host 0.0.0.0 --allow_origins="*" .`. Once the server starts, it will provide a **web preview link** in the terminal. Click that link to open the graphical chat UI in your browser!
+
 ---
 
 ## 1. Single Agent Pattern (`single_agent_pattern_1`)
