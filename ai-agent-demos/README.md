@@ -93,7 +93,20 @@ adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
 
 ---
 
-## 3. GenAI SDK Demo (`genai_sdk_demo`)
+## 3. Sequential Agent Pattern (`2_sequential_agent_pattern`)
+**Brief Intro:** This project demonstrates the **Sequential Agent** (Pattern #2) using ADK 2.0. It models a trip planning scenario where a **Food Agent** first selects a dining location, and its output is then passed to a **Transportation Agent** to determine the route.
+
+**Run Instructions:**
+```bash
+cd 2_sequential_agent_pattern
+adk run .                                          # Run in Terminal
+adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
+```
+*📖 For a detailed explanation of this project, see: `2_sequential_agent_pattern/WORKFLOW_EXPLANATION.md`*
+
+---
+
+## 4. GenAI SDK Demo (`genai_sdk_demo`)
 **Brief Intro:** Unlike the previous two, this project is built using the raw **`google-genai` Python SDK** *without* the ADK framework. It demonstrates how to manually build an interactive chat loop, maintain conversation history, and register tools from scratch.
 
 **Run Instructions:**
