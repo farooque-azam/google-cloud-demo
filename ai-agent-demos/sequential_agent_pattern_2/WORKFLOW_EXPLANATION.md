@@ -16,7 +16,7 @@ In this example, we replicate the video's trip planning scenario:
 
 ## How to Run
 ```bash
-cd ~/ai-agent-demos/2_sequential_agent_pattern
+cd ~/ai-agent-demos/sequential_agent_pattern_2
 adk run .
 ```
 You can prompt it with: "I'm starting at my house in downtown and I want to eat pizza."

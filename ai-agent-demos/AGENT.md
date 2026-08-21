@@ -18,6 +18,6 @@ This project serves as a monorepo for all AI Agent demonstrations. To keep the p
 - When creating ADK 2.0 projects, the top-level agent instantiated in your Python file MUST be exactly named `root_agent`. The ADK CLI (`adk run`) looks for this specific variable name by default (e.g., `root_agent = Agent(...)` or `root_agent = SequentialAgent(...)`).
 
 ## 4. Sub-Project Documentation & Naming
-- **Sequential Naming**: Every new project folder must be prefixed with a sequence number that corresponds to its order in the main `README.md` (e.g., `1_single_agent_pattern`, `2_sequential_agent_pattern`).
+- **Sequential Naming**: Every new project folder must be prefixed with a sequence number that corresponds to its order in the main `README.md` (e.g., `single_agent_pattern_1`, `sequential_agent_pattern_2`).
 - **Local Explanation**: Create a dedicated explanation markdown file (e.g., `WORKFLOW_EXPLANATION.md`) inside every new project folder detailing how it works and how to run it.
 - **Main README**: Always add a brief summary and run instructions for the new project to the main root `README.md` file, ensuring the numbering stays consistent.

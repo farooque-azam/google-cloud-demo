@@ -67,42 +67,42 @@ source .venv/bin/activate
 
 ---
 
-## 1. Single Agent Pattern (`1_single_agent_pattern`)
+## 1. Single Agent Pattern (`single_agent_pattern_1`)
 **Brief Intro:** A foundational "Hello World" application built using Google's **Agent Development Kit (ADK) 2.0**. It demonstrates the basics of declarative agent design (matching Pattern #1) and uses a standard Python module package structure (`__init__.py` explicitly loads the agent).
 
 **Run Instructions:**
 ```bash
-cd 1_single_agent_pattern/greeting_app
+cd single_agent_pattern_1/greeting_app
 adk run .                                          # Run in Terminal
 adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
 ```
-*📖 For a detailed explanation of the workflow and CLI commands, see: `1_single_agent_pattern/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of the workflow and CLI commands, see: `single_agent_pattern_1/WORKFLOW_EXPLANATION.md`*
 
 ---
 
-## 2. Single Agent with Tools (`1_single_agent_with_tools`)
+## 2. Single Agent with Tools (`single_agent_with_tools_1`)
 **Brief Intro:** A more advanced ADK 2.0 agent that implements **custom tools (function calling)** to calculate mathematical expressions and retrieve real-time server information. It demonstrates the tool usage described in Pattern #1 with a lightweight "flat directory" structure.
 
 **Run Instructions:**
 ```bash
-cd 1_single_agent_with_tools
+cd single_agent_with_tools_1
 adk run .                                          # Run in Terminal
 adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
 ```
-*📖 For a detailed explanation of this project and the structural differences, see: `1_single_agent_with_tools/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of this project and the structural differences, see: `single_agent_with_tools_1/WORKFLOW_EXPLANATION.md`*
 
 ---
 
-## 3. Sequential Agent Pattern (`2_sequential_agent_pattern`)
+## 3. Sequential Agent Pattern (`sequential_agent_pattern_2`)
 **Brief Intro:** This project demonstrates the **Sequential Agent** (Pattern #2) using ADK 2.0. It models a trip planning scenario where a **Food Agent** first selects a dining location, and its output is then passed to a **Transportation Agent** to determine the route.
 
 **Run Instructions:**
 ```bash
-cd 2_sequential_agent_pattern
+cd sequential_agent_pattern_2
 adk run .                                          # Run in Terminal
 adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
 ```
-*📖 For a detailed explanation of this project, see: `2_sequential_agent_pattern/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of this project, see: `sequential_agent_pattern_2/WORKFLOW_EXPLANATION.md`*
 
 ---
 
