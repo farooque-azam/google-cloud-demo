@@ -133,7 +133,7 @@ Ensure you are in the correct directory and your virtual environment is active:
 
 ```bash
 # Navigate to the project directory
-cd ~/ai-agent-demos/single-agent-demo
+cd ~/ai-agent-demos/genai_sdk_demo
 
 # Activate the virtual environment
 source ../.venv/bin/activate

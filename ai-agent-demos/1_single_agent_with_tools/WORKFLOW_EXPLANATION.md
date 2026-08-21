@@ -11,7 +11,7 @@ This agent uses the ADK 2.0 CLI. Ensure your virtual environment is active befor
 Navigate to this project's directory and activate your virtual environment:
 
 ```bash
-cd ~/ai-agent-demos/tool_calling_pattern
+cd ~/ai-agent-demos/1_single_agent_with_tools
 source ~/ai-agent-demos/.venv/bin/activate
 ```
 
@@ -51,7 +51,7 @@ from . import agent
 ```
 * **Why do this?** This structure treats the agent as a formal Python package. When you run `adk run greeting_app`, Python loads the `greeting_app` module, the `__init__.py` automatically executes, and it explicitly loads your `agent.py`. This is best for larger, complex applications where you want strict control over how imports and files are loaded.
 
-### Approach 2: The Flat Directory Structure (Used here in `tool_calling_pattern`)
-In this project, everything sits in a single, flat directory (`tool_calling_pattern`). If you look at the `__init__.py` file here, it is empty (just a comment). 
+### Approach 2: The Flat Directory Structure (Used here in `1_single_agent_with_tools`)
+In this project, everything sits in a single, flat directory (`1_single_agent_with_tools`). If you look at the `__init__.py` file here, it is empty (just a comment). 
 * **Why do this?** ADK is smart enough to scan the target directory. When you run `adk run .`, even without explicit instructions in `__init__.py`, ADK automatically looks for a file named `agent.py` (or a `root_agent.yaml`) and loads it. 
 * This is a faster, more lightweight way to structure simple demos and single-file agents without needing complex Python package plumbing!
