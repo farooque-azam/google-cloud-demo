@@ -20,3 +20,13 @@ cd ~/ai-agent-demos/sequential_agent_pattern_2
 adk run .
 ```
 You can prompt it with: "I'm starting at my house in downtown and I want to eat pizza."
+
+## Pros & Cons
+
+### Pros
+- **High Reliability:** Ensures tasks are executed in a strict, predictable order.
+- **Separation of Concerns:** Each agent has a single, focused instruction (e.g., finding food vs. finding transit), making them easier to test and maintain.
+
+### Cons
+- **Less Flexible:** Cannot dynamically adapt the workflow if the user's request doesn't perfectly fit the predefined sequence.
+- **Performance Trade-off (Context Caching Invalidated):** When ADK transitions execution from the first agent (e.g., `food_agent`) to the second agent (e.g., `transport_agent`), the underlying system prompt sent to the LLM changes. Because the prompt is no longer static, it causes a **context cache miss**. This results in higher latency and token costs compared to a single-agent architecture that can reuse a cached prompt across multiple turns.
