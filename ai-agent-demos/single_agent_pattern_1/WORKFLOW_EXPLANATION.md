@@ -1,6 +1,8 @@
 # ADK 2.0 Workflow Explanation
 
 This directory contains a "Hello World" application built using Google's **Agent Development Kit (ADK) 2.0**. ADK 2.0 provides a structured, code-first approach to building multi-agent systems and graph-based workflows.
+n![Single Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-single-agent.svg)
+
 
 ## How the ADK Workflow Operates
 

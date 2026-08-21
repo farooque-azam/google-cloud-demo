@@ -1,6 +1,8 @@
 # ADK Temperature & Calculator Demo
 
 This directory contains an interactive agent built with ADK 2.0 that features custom Python tools (function calling) for calculating mathematical expressions and retrieving the current server time/location.
+n![Single Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-single-agent.svg)
+
 
 ## Running the Agent
 

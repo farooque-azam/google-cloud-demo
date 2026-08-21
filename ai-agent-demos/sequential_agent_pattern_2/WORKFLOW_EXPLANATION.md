@@ -2,6 +2,8 @@
 
 This directory demonstrates Pattern 2 from the AI Agent Design Patterns video: the **Sequential Agent**.
 
+n![Sequential Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-sequential.svg)
+
 ## Overview
 The Sequential Pattern uses an "assembly line" approach where specialized agents work in a fixed, predictable order. The output of one agent serves as the input for the next. This provides high reliability and control.
 

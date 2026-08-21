@@ -28,3 +28,7 @@ This project serves as a monorepo for all AI Agent demonstrations. To keep the p
 ## 6. .gitignore Rules
 - **DO NOT** create `.gitignore` files inside individual sub-project directories.
 - All `.gitignore` rules (like ignoring `*.evalset.json` files, environments, or caches) MUST be consolidated into the single parent `.gitignore` file located at the root of `ai-agent-demos/`.
+
+## 7. Architecture & Design Patterns
+- The foundational design patterns and terminology for this repository are based on the official [Google Cloud Architecture Guide: Choose a design pattern for your agentic AI system](https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system).
+- When creating documentation for new patterns, always reference the corresponding architecture from this guide and embed the official SVG diagrams where applicable.

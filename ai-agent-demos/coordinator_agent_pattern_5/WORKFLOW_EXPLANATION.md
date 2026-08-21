@@ -2,6 +2,8 @@
 
 This directory demonstrates Pattern 5 from the AI Agent Design Patterns video: the **Coordinator Agent**.
 
+n![Coordinator Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-coordinator.svg)
+
 ## Overview
 The Coordinator Pattern uses an "assembly line" approach where specialized agents work in a fixed, predictable order. The output of one agent serves as the input for the next. This provides high reliability and control.
 
