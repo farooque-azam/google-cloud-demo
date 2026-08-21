@@ -24,3 +24,7 @@ This project serves as a monorepo for all AI Agent demonstrations. To keep the p
 
 ## 5. Testing Terminology
 - **End-to-End (E2E) Execution:** Whenever the user asks to "test" the project or code, it strictly means performing an **End-to-End Test** (or full execution test). This requires actually running the application (for instance, executing `adk run .` with a test prompt via CLI, or running an integration script) to verify that the entire workflow succeeds without runtime errors, rather than merely checking syntax or verifying Python imports.
+
+## 6. .gitignore Rules
+- **DO NOT** create `.gitignore` files inside individual sub-project directories.
+- All `.gitignore` rules (like ignoring `*.evalset.json` files, environments, or caches) MUST be consolidated into the single parent `.gitignore` file located at the root of `ai-agent-demos/`.
