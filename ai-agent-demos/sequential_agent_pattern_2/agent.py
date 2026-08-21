@@ -1,4 +1,5 @@
-from google.adk.agents import Agent, SequentialAgent
+from google.adk.agents import Agent
+from google.adk.workflow import Workflow, START
 from .tools import find_restaurant, get_transit_directions
 
 food_agent = Agent(
@@ -20,8 +21,11 @@ transport_agent = Agent(
     tools=[get_transit_directions]
 )
 
-root_agent = SequentialAgent(
+root_agent = Workflow(
     name="trip_planner",
     description="You are a trip planner. First find a restaurant, then provide directions.",
-    sub_agents=[food_agent, transport_agent]
+    edges=[
+        (START, food_agent),
+        (food_agent, transport_agent)
+    ]
 )
