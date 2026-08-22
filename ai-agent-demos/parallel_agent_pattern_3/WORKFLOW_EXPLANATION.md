@@ -13,6 +13,9 @@ In this example, we implement a concurrent research pipeline:
 2. **Document Researcher**: Searches internal databases for company policies about the same topic.
 3. **Aggregator Agent**: Waits for both researchers to finish, then synthesizes their independent findings into a single executive summary.
 
+## Update: API Rate Limits & Mock Tools
+Due to strict free-tier rate limits on the Gemini API (`429 RESOURCE_EXHAUSTED`), testing parallel LLM calls concurrently can easily blow through API quotas. To ensure the demo works reliably, this pattern uses **mock tools** (`search_news` and `search_database`) that return hardcoded data instead of live search results. Be aware that queries for real-world events (e.g. "Iran war") will return the mock company data.
+
 ## Code Structure
 - `tools.py`: Contains our mock tools (`search_news`, `search_database`).
 - `agent.py`: Uses ADK's `Workflow` API and `JoinNode`. The execution graph branches out from `START` to both researchers simultaneously, and then uses a `JoinNode` to block the `aggregator_agent` until both branches have completed successfully.
@@ -34,7 +37,6 @@ source .venv/bin/activate
 cd parallel_agent_pattern_3
 adk web --host 0.0.0.0 --allow_origins="*" .
 ```
-*(Click the provided preview link in Cloud Shell once the server starts).*
 
 ## Pros & Cons
 
@@ -44,8 +46,4 @@ adk web --host 0.0.0.0 --allow_origins="*" .
 
 ### Cons
 - **Aggregation Complexity:** If one of the parallel agents fails or hallucinates, the aggregator agent must be robust enough to handle partial or conflicting data.
-- **Cost:** Running multiple LLM agents concurrently consumes more tokens than single-agent approaches.
-
-## Update: Dynamic Tools vs Mock Tools
-* **News Researcher:** Upgraded to use ADK's built-in `google_search` tool, allowing it to perform live web queries (e.g., retrieving real-time news about global events).
-* **Document Researcher:** Retains a static, hardcoded mock tool (`search_database`) to demonstrate how an agent interacts with internal company data safely without internet access.
+- **Cost & Quotas:** Running multiple LLM agents concurrently consumes more tokens and can easily trigger API rate limits (HTTP 429) if not properly throttled.
