@@ -45,3 +45,7 @@ adk web --host 0.0.0.0 --allow_origins="*" .
 ### Cons
 - **Aggregation Complexity:** If one of the parallel agents fails or hallucinates, the aggregator agent must be robust enough to handle partial or conflicting data.
 - **Cost:** Running multiple LLM agents concurrently consumes more tokens than single-agent approaches.
+
+## Update: Dynamic Tools vs Mock Tools
+* **News Researcher:** Upgraded to use ADK's built-in `google_search` tool, allowing it to perform live web queries (e.g., retrieving real-time news about global events).
+* **Document Researcher:** Retains a static, hardcoded mock tool (`search_database`) to demonstrate how an agent interacts with internal company data safely without internet access.

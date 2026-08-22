@@ -1,14 +1,15 @@
 from google.adk.agents import Agent
 from google.adk.workflow import Workflow, START, JoinNode
-from .tools import search_news, search_database
+from google.adk.tools import google_search
+from .tools import search_database
 
 news_agent = Agent(
     name="news_agent",
     model="gemini-3.5-flash-lite",
     instruction="""You are the News Researcher. 
-- You MUST use the `search_news` tool to find recent news about the user's topic.
-- Do NOT ask clarifying questions. Summarize the news result concisely.""",
-    tools=[search_news]
+- You MUST use the `google_search` tool to find recent real-world news about the user's topic.
+- Do NOT ask clarifying questions. Summarize the live news result concisely.""",
+    tools=[google_search(bypass_multi_tools_limit=True) if callable(google_search) else google_search]
 )
 
 doc_agent = Agent(
