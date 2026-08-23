@@ -26,7 +26,12 @@ To test this agent in the terminal (CLI):
 ```bash
 # Assuming you are in the ai-agent-demos directory with your venv activated
 cd p3_parallel
+
+# Option 1: Provide the prompt directly to kick off the research immediately
 adk run . "Acme Corp"
+
+# Option 2: Run it interactively and type your topic when asked
+adk run .
 ```
 
 To view the strict parallel execution graph in the browser:
