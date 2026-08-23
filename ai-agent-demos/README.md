@@ -49,6 +49,9 @@ GOOGLE_API_KEY="your_copied_api_key_here"
 *(Note: Do not commit your `.env` file to GitHub! It is already added to `.gitignore` to prevent accidental uploads).*
 
 ### 3. Create & Activate Virtual Environment
+> [!IMPORTANT]
+> **Python 3.10 or higher is required.** The ADK 2.0 uses the Model Context Protocol (MCP) which strictly requires at least Python 3.10. If your default `python` is 3.9, you must use a newer installed version to create your environment (e.g., `py -3.11 -m venv .venv`).
+
 Before running the projects, you must create a Python virtual environment and activate it. This keeps the dependencies isolated to this project.
 
 ```bash
