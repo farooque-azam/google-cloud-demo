@@ -21,10 +21,16 @@ transport_agent = Agent(
     tools=[get_transit_directions]
 )
 
-# Note: Even though we use SequentialAgent under the hood, the conversational
-# back-and-forth makes this act conceptually as a Coordinator pattern.
-root_agent = SequentialAgent(
+# Note: In ADK 2.0, a true Coordinator uses a standard `Agent` with `sub_agents`.
+# The LLM acts as the router and dynamically invokes the correct sub-agent
+# using its built-in `transfer_to_agent` function call.
+root_agent = Agent(
     name="trip_coordinator",
-    description="You coordinate a trip. You delegate to the food agent, then the transport agent.",
+    model="gemini-3.5-flash-lite",
+    instruction="""You coordinate a trip. You act as a router.
+- Analyze the user's request. 
+- If they want food, transfer to the food_agent.
+- If they have a restaurant and want directions, transfer to the transport_agent.
+- Do not answer the question yourself, always delegate to the correct sub-agent.""",
     sub_agents=[food_agent, transport_agent]
 )
