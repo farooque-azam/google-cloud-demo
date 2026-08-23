@@ -19,6 +19,7 @@ __pycache__/
 .rustup/
 .cache/
 .vscode/
+.env 
 
 # Cloud Shell Home Directory System Files
 .bash_history

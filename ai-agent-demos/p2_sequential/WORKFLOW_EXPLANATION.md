@@ -8,32 +8,30 @@ This directory demonstrates Pattern 2 from the AI Agent Design Patterns video: t
 The Sequential Pattern uses an "assembly line" approach where specialized agents or nodes work in a fixed, predictable order. The output of one agent serves as the input for the next, providing high reliability and control.
 
 ## Use Case: Trip Planning
-In this example, we replicate the video's trip planning scenario. This project implements the sequential flow by chaining two LLM agents using ADK's `Workflow` API:
+In this example, we replicate the video's trip planning scenario. This project implements the sequential flow by chaining two LLM agents using ADK's native `SequentialAgent` class:
 1. **Food Agent**: Executes first, takes the user's input, and searches for a dining option.
 2. **Transportation Agent**: Executes second, reading the selected restaurant, gets directions, and returns the final combined response to the user.
 
 ## Code Structure
 - `tools.py`: Contains our mock tools (`find_restaurant`, `get_transit_directions`).
-- `agent.py`: Defines the two agents and strictly connects them in a linear execution graph (`START -> food_agent -> transport_agent`) using `google.adk.workflow.Workflow`.
+- `agent.py`: Defines the two individual agents and strictly chains them together in a linear sequence using `google.adk.agents.SequentialAgent`.
 
 ## How to Run
 
 To test this agent in the terminal (CLI):
 ```bash
-cd ~/ai-agent-demos
-source .venv/bin/activate
-cd sequential_agent_pattern_2
+# Assuming you are in the ai-agent-demos directory with your venv activated
+cd p2_sequential
 adk run . "I want to eat pizza give me pizza shop"
 ```
 
 To view the strict sequential graph visually, launch the ADK Web UI:
 ```bash
-cd ~/ai-agent-demos
-source .venv/bin/activate
-cd sequential_agent_pattern_2
-adk web --host 0.0.0.0 --allow_origins="*" .
+# The Web UI must be run from the parent ai-agent-demos directory
+# so it can detect this module in the dropdown
+adk web --host 127.0.0.1 --allow_origins="*" .
 ```
-*(Click the provided preview link in Cloud Shell once the server starts).*
+*(Open http://127.0.0.1:8000 in your browser once the server starts).*
 
 ## Pros & Cons
 

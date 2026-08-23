@@ -1,5 +1,4 @@
-from google.adk.agents import Agent
-from google.adk.workflow import Workflow, START, JoinNode
+from google.adk.agents import Agent, ParallelAgent, SequentialAgent
 from .tools import search_news, search_database
 
 news_agent = Agent(
@@ -28,17 +27,13 @@ aggregator_agent = Agent(
 - Combine them into a single, cohesive, final executive summary for the user."""
 )
 
-# Join node to wait for both researchers to finish
-join_node = JoinNode(name="wait_for_researchers")
+researchers = ParallelAgent(
+    name="researchers",
+    sub_agents=[news_agent, doc_agent]
+)
 
-root_agent = Workflow(
+root_agent = SequentialAgent(
     name="parallel_researcher",
     description="Searches news and docs in parallel, then synthesizes.",
-    edges=[
-        (START, news_agent),
-        (START, doc_agent),
-        (news_agent, join_node),
-        (doc_agent, join_node),
-        (join_node, aggregator_agent)
-    ]
+    sub_agents=[researchers, aggregator_agent]
 )

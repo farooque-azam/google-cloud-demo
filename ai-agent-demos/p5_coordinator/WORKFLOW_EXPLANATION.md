@@ -18,7 +18,7 @@ In this example, we replicate the video's trip planning scenario:
 
 ## How to Run
 ```bash
-cd ~/ai-agent-demos/coordinator_agent_pattern_5
+cd ~/ai-agent-demos/p5_coordinator
 adk run .
 ```
 You can prompt it with: "I'm starting at my house in downtown and I want to eat pizza."

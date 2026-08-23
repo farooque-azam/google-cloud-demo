@@ -34,10 +34,11 @@ If you have forked this repository to run the demos yourself, you must first set
 3. Click **"Create API key"** and copy the generated key.
 
 ### 2. Configure Your Environment
-Create a `.env` file in the root `ai-agent-demos/` directory to securely store your key.
+Create a `.env` file inside the `ai-agent-demos/` directory to securely store your key.
 
 ```bash
-cd ~/ai-agent-demos
+cd ai-agent-demos
+# (On Windows, you can just create a new text file and name it .env)
 touch .env
 ```
 
@@ -47,68 +48,87 @@ GOOGLE_API_KEY="your_copied_api_key_here"
 ```
 *(Note: Do not commit your `.env` file to GitHub! It is already added to `.gitignore` to prevent accidental uploads).*
 
-### 3. Install Dependencies
-Before running the projects, you must install the required Python packages into your virtual environment.
+### 3. Create & Activate Virtual Environment
+Before running the projects, you must create a Python virtual environment and activate it. This keeps the dependencies isolated to this project.
 
 ```bash
-cd ~/ai-agent-demos
+cd ai-agent-demos
+python -m venv .venv
+
+# Activate on Windows (PowerShell/CMD):
+.\.venv\Scripts\activate
+
+# Activate on Mac/Linux:
 source .venv/bin/activate
-pip install "google-adk[ui]" google-genai
 ```
 
-*(Note: The `[ui]` extra is required to run the ADK Web interface).*
+### 4. Install Dependencies
+With your virtual environment activated, install the required packages:
 
-### 4. Activate Virtual Environment
-Before running any of the projects, ensure you have your virtual environment activated from the root directory:
 ```bash
-cd ~/ai-agent-demos
-source .venv/bin/activate
+pip install "google-adk[ui]" "google-adk[eval]" google-genai python-multipart
 ```
+*(Note: The `[ui]` extra and `python-multipart` are required for the Web interface. The `[eval]` extra is required if you want to run automated agent evaluations, as it installs data science libraries like pandas and rouge-score needed to measure agent performance).*
 
 ### 5. Running the Agents (CLI vs Web UI)
 The Agent Development Kit (ADK) provides two main ways to interact with your agents:
 
 1. **Terminal CLI (`adk run`)**: This is the fastest way to test your agent. Simply navigate to the project directory and execute `adk run .`. You can then interact with the agent directly in your command line.
-2. **Web Interface (`adk web`)**: If you prefer a visual chat interface, you can launch a local web server by running `adk web --host 0.0.0.0 --allow_origins="*" .`. Once the server starts, it will provide a **web preview link** in the terminal. Click that link to open the graphical chat UI in your browser!
+2. **Web Interface (`adk web`)**: If you prefer a visual chat interface, you can launch a local web server by running `adk web --host 127.0.0.1 --allow_origins="*" .`. Once the server starts, it will provide a **web preview link** in the terminal. Click that link to open the graphical chat UI in your browser!
 
 ---
 
-## 1. Single Agent Pattern (`single_agent_pattern_1`)
+## 1. Single Agent Pattern (`p1_single`)
 **Brief Intro:** A foundational "Hello World" application built using Google's **Agent Development Kit (ADK) 2.0**. It demonstrates the basics of declarative agent design (matching Pattern #1) and uses a standard Python module package structure (`__init__.py` explicitly loads the agent).
 
 **Run Instructions:**
 ```bash
-cd single_agent_pattern_1/greeting_app
-adk run .                                          # Run in Terminal
-adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
+# Terminal CLI (Assuming you are in the ai-agent-demos directory)
+cd p1_single
+adk run .
+
+# Web UI
+# Must be run from the ai-agent-demos directory
+cd ../
+adk web --host 127.0.0.1 --allow_origins="*" .
 ```
-*📖 For a detailed explanation of the workflow and CLI commands, see: `single_agent_pattern_1/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of the workflow and CLI commands, see: `p1_single/WORKFLOW_EXPLANATION.md`*
 
 ---
 
-## 2. Single Agent with Tools (`single_agent_with_tools_1`)
+## 2. Single Agent with Tools (`p1_single_tools`)
 **Brief Intro:** A more advanced ADK 2.0 agent that implements **custom tools (function calling)** to calculate mathematical expressions and retrieve real-time server information. It demonstrates the tool usage described in Pattern #1 with a lightweight "flat directory" structure.
 
 **Run Instructions:**
 ```bash
-cd single_agent_with_tools_1
-adk run .                                          # Run in Terminal
-adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
+# Terminal CLI (Assuming you are in the ai-agent-demos directory)
+cd p1_single_tools
+adk run .
+
+# Web UI
+# Must be run from the ai-agent-demos directory
+cd ../
+adk web --host 127.0.0.1 --allow_origins="*" .
 ```
-*📖 For a detailed explanation of this project and the structural differences, see: `single_agent_with_tools_1/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of this project and the structural differences, see: `p1_single_tools/WORKFLOW_EXPLANATION.md`*
 
 ---
 
-## 3. Sequential Agent Pattern (`sequential_agent_pattern_2`)
+## 3. Sequential Agent Pattern (`p2_sequential`)
 **Brief Intro:** This project demonstrates the **Sequential Agent** (Pattern #2) using ADK 2.0. It models a trip planning scenario where a **Food Agent** first selects a dining location, and its output is then passed to a **Transportation Agent** to determine the route.
 
 **Run Instructions:**
 ```bash
-cd sequential_agent_pattern_2
-adk run .                                          # Run in Terminal
-adk web --host 0.0.0.0 --allow_origins="*" .       # Run Web UI in Cloud Shell
+# Terminal CLI (Assuming you are in the ai-agent-demos directory)
+cd p2_sequential
+adk run .
+
+# Web UI
+# Must be run from the ai-agent-demos directory
+cd ../
+adk web --host 127.0.0.1 --allow_origins="*" .
 ```
-*📖 For a detailed explanation of this project, see: `sequential_agent_pattern_2/WORKFLOW_EXPLANATION.md`*
+*📖 For a detailed explanation of this project, see: `p2_sequential/WORKFLOW_EXPLANATION.md`*
 
 ---
 

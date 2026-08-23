@@ -11,7 +11,7 @@ Unlike building an agent from scratch using the raw `google-genai` SDK, ADK abst
 Here is a step-by-step breakdown of how the ADK workflow operates in this project:
 
 ### 1. Application Initialization (`adk create`)
-The `greeting_app` was generated using the ADK CLI command: `adk create greeting_app`. 
+The `p1_single` was generated using the ADK CLI command: `adk create p1_single`. 
 This creates a standardized folder structure:
 *   **`.env`**: Stores sensitive credentials, specifically the `GOOGLE_API_KEY`.
 *   **`agent.py`**: The core definition of your AI agent.
@@ -36,19 +36,19 @@ root_agent = Agent(
 ### 3. Execution via the ADK Runner
 ADK uses a built-in runner engine to execute the agent. You don't write the `while True:` input loop yourself.
 
-Assuming your terminal is in the parent directory (`~/ai-agent-demos/single_agent_pattern_1/`), you can run a single query like this:
+Assuming your terminal is in the parent directory (`~/ai-agent-demos/`), you can run a single query like this:
 ```bash
-adk run greeting_app "Hello! I am just starting out with ADK 2.0."
+adk run p1_single "Hello! I am just starting out with ADK 2.0."
 ```
-*(If you are already inside the `greeting_app` folder, you would use `adk run . "Hello..."` instead).*
+*(If you are already inside the `p1_single` folder, you would use `adk run . "Hello..."` instead).*
 
-1.  **Context Setup**: The ADK Runner loads `greeting_app/agent.py` and initializes the `root_agent`.
+1.  **Context Setup**: The ADK Runner loads `agent.py` and initializes the `root_agent`.
 2.  **State Management**: It automatically handles session tracking. Notice in the terminal output that a `Session ID: <UUID>` is generated. ADK manages the history of the conversation tied to this ID.
 3.  **Model Invocation**: The Runner sends the user's query, along with the agent's instructions and conversation history, to the Gemini model.
 4.  **Response Handling**: The model's response is streamed back to the terminal automatically.
 
 ### 4. Interactive Mode
-If you run `adk run greeting_app` (or `adk run .` if you are already inside the folder) *without* a trailing prompt, the ADK Runner boots into an interactive terminal session, handling user input, history preservation, and error recovery automatically.
+If you run `adk run p1_single` (or `adk run .` if you are already inside the folder) *without* a trailing prompt, the ADK Runner boots into an interactive terminal session, handling user input, history preservation, and error recovery automatically.
 
 ## Summary
 The ADK 2.0 workflow focuses on **declarative agent design**. You define *what* the agent is and *what tools* it has in `agent.py`, and the ADK execution engine (via the CLI or API server) handles the complex routing, history, and state management required to make it run.
@@ -57,14 +57,14 @@ The ADK 2.0 workflow focuses on **declarative agent design**. You define *what* 
 
 When working with ADK, you will often use the terminal. Here is a brief explanation of the environment setup:
 
-### 1. The Virtual Environment (`source .venv/bin/activate`)
+### 1. The Virtual Environment (`python -m venv .venv`)
 We installed the `google-adk` package into an isolated folder called `.venv`. 
-When you run `source .venv/bin/activate`, you are telling your normal bash terminal to temporarily prioritize looking inside the `.venv/bin/` folder for commands before checking your system's global programs.
+When you activate it (e.g. `.\.venv\Scripts\activate` on Windows or `source .venv/bin/activate` on Linux/Mac), you are telling your terminal to temporarily prioritize looking inside the `.venv` folder for commands before checking your system's global programs.
 
 ### 2. The ADK CLI
-Installing `google-adk` automatically provided an executable command called `adk` inside that `.venv/bin/` folder. This is the **Command Line Interface (CLI)**.
-*   The `adk` command is a Python script that loads the ADK source code (stored in `.venv/lib/python3.X/site-packages/google/adk/`).
-*   You use the CLI to scaffold projects (`adk create`) and to launch the Runner (`adk run`).
+Installing `google-adk` automatically provided an executable command called `adk` inside that `.venv/Scripts/` folder (or `.venv/bin/` on Linux). This is the **Command Line Interface (CLI)**.
+*   The `adk` command is a Python script that loads the ADK source code.
+*   You use the CLI to scaffold projects (`adk create p1_single`) and to launch the Runner. For example, executing `adk run p1_single` tells the CLI to look for a module named `p1_single` and execute its root agent.
 
 By activating the environment, your terminal knows exactly where to find the `adk` command and the required source files to execute your agent!
 
@@ -82,7 +82,7 @@ from . import agent
 
 ### Why is this necessary?
 In Python, any folder containing an `__init__.py` file is treated as a **module** (or package). 
-If the file were empty, importing the `greeting_app` folder wouldn't automatically load the files inside it. By including `from . import agent`, you ensure that whenever the ADK Runner imports the `greeting_app` module, it automatically executes and loads your `root_agent` configuration from `agent.py`.
+If the file were empty, importing the `p1_single` folder wouldn't automatically load the files inside it. By including `from . import agent`, you ensure that whenever the ADK Runner imports the `p1_single` module, it automatically executes and loads your `root_agent` configuration from `agent.py`.
 
 ## Running the ADK Web UI
 
@@ -92,27 +92,26 @@ ADK also provides a web-based user interface to interact with your agent visuall
 To use the Web UI, ensure your virtual environment is activated and you have installed the `[ui]` extras for the ADK package.
 
 ```bash
-# Ensure your virtual environment is active
-source .venv/bin/activate
+# Ensure your virtual environment is active (Windows)
+.\.venv\Scripts\activate
 
-# Install the UI extras (this installs dependencies like FastAPI and Uvicorn)
-pip install "google-adk[ui]"
+# Install the UI extras (this installs dependencies like FastAPI, Uvicorn, and form parsers)
+pip install "google-adk[ui]" python-multipart
 ```
 
 ### 2. Invoking the Web UI
-To run the Web UI, you must use the `adk web` command and point it to the directory containing your agent (e.g., `greeting_app`). 
+To run the Web UI, you must use the `adk web` command and point it to the directory containing your agent (e.g., `p1_single`). 
 
-Assuming you are in the parent directory (`~/ai-agent-demos/single_agent_pattern_1/`), run:
+Assuming you are in the parent directory (`~/ai-agent-demos/`), run:
 
 ```bash
-adk web --host 0.0.0.0 --allow_origins="*" greeting_app
+adk web --host 127.0.0.1 --allow_origins="*" .
 ```
 
-*If you are already inside the `greeting_app` folder, you would use `.` instead of `greeting_app`.*
+*Note: You MUST run the web server from this parent directory. The web UI acts as a dashboard that scans the current directory for agent folders. If you run it from inside `p1_single`, it will not find any sub-agents and will show a "No agents found" error.*
 
 **Understanding the Command Flags:**
-When running this server on a local machine, `adk web greeting_app` is sufficient. However, because we are running this in a remote Google Cloud Shell environment, we need to bypass network proxy restrictions:
-*   `--host 0.0.0.0`: By default, the server only listens to internal traffic on `127.0.0.1` (localhost). Changing the host to `0.0.0.0` tells the server to listen for incoming connections from *any* network interface, allowing the Cloud Shell web proxy to connect to it.
-*   `--allow_origins="*"`: By default, the server's CORS (Cross-Origin Resource Sharing) policy blocks requests that don't come from `localhost`. Because the Cloud Shell web preview uses a dynamic external URL (e.g., `https://8000-cs...`), the server will block the Javascript UI files from loading with a `403 Forbidden` error. Setting the origin to `*` tells the server to trust and allow requests from any domain name.
+When running this server on a local machine, simply running `adk web p1_single` without flags is usually sufficient (it defaults to `127.0.0.1`). However, if you were running this in a remote Google Cloud Shell environment, you would need to bypass network proxy restrictions by using `--host 0.0.0.0` and `--allow_origins="*"`.
+*   `--host 127.0.0.1`: Explicitly tells the server to listen only to internal traffic on `localhost`, which is the safest option for local development and avoids firewall warnings.
 
-Once the command is running, you can click the **Web Preview** button in Cloud Shell and select **Preview on port 8000** to view the UI.
+Once the command is running, you can open your browser to `http://127.0.0.1:8000` to view the UI.

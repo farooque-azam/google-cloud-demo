@@ -18,24 +18,22 @@ Due to strict free-tier rate limits on the Gemini API (`429 RESOURCE_EXHAUSTED`)
 
 ## Code Structure
 - `tools.py`: Contains our mock tools (`search_news`, `search_database`).
-- `agent.py`: Uses ADK's `Workflow` API and `JoinNode`. The execution graph branches out from `START` to both researchers simultaneously, and then uses a `JoinNode` to block the `aggregator_agent` until both branches have completed successfully.
+- `agent.py`: Uses ADK's `ParallelAgent` and `SequentialAgent` classes. The two researchers are bundled into a `ParallelAgent` so they execute simultaneously. That block is then chained sequentially with the `aggregator_agent` so the aggregator waits for both to finish before synthesizing the results.
 
 ## How to Run
 
 To test this agent in the terminal (CLI):
 ```bash
-cd ~/ai-agent-demos
-source .venv/bin/activate
-cd parallel_agent_pattern_3
+# Assuming you are in the ai-agent-demos directory with your venv activated
+cd p3_parallel
 adk run . "Acme Corp"
 ```
 
 To view the strict parallel execution graph in the browser:
 ```bash
-cd ~/ai-agent-demos
-source .venv/bin/activate
-cd parallel_agent_pattern_3
-adk web --host 0.0.0.0 --allow_origins="*" .
+# The Web UI must be run from the parent ai-agent-demos directory
+# so it can detect this module in the dropdown
+adk web --host 127.0.0.1 --allow_origins="*" .
 ```
 
 ## Pros & Cons
