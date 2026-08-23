@@ -125,7 +125,6 @@ adk run .
 
 # Web UI
 # Must be run from the ai-agent-demos directory
-cd ../
 adk web --host 127.0.0.1 --allow_origins="*" .
 ```
 *📖 For a detailed explanation of this project, see: `p2_sequential/WORKFLOW_EXPLANATION.md`*
@@ -139,7 +138,7 @@ adk web --host 127.0.0.1 --allow_origins="*" .
 ```bash
 # Terminal CLI (Assuming you are in the ai-agent-demos directory)
 cd p3_parallel
-adk run . "Acme Corp"
+adk run .
 
 # Web UI
 # The Web UI must be run from the ai-agent-demos directory

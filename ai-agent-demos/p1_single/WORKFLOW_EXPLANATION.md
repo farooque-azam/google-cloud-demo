@@ -36,11 +36,11 @@ root_agent = Agent(
 ### 3. Execution via the ADK Runner
 ADK uses a built-in runner engine to execute the agent. You don't write the `while True:` input loop yourself.
 
-Assuming your terminal is in the parent directory (`~/ai-agent-demos/`), you can run a single query like this:
+Assuming your terminal is in the parent directory (`~/ai-agent-demos/`), you can start the agent like this:
 ```bash
-adk run p1_single "Hello! I am just starting out with ADK 2.0."
+adk run p1_single
 ```
-*(If you are already inside the `p1_single` folder, you would use `adk run . "Hello..."` instead).*
+*(If you are already inside the `p1_single` folder, you would use `adk run .` instead).*
 
 1.  **Context Setup**: The ADK Runner loads `agent.py` and initializes the `root_agent`.
 2.  **State Management**: It automatically handles session tracking. Notice in the terminal output that a `Session ID: <UUID>` is generated. ADK manages the history of the conversation tied to this ID.

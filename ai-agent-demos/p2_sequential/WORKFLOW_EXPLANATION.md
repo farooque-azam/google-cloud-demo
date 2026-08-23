@@ -22,11 +22,6 @@ To test this agent in the terminal (CLI):
 ```bash
 # Assuming you are in the ai-agent-demos directory with your venv activated
 cd p2_sequential
-
-# Option 1: Provide the prompt directly to kick off the planner immediately
-adk run . "I want to eat pizza give me pizza shop"
-
-# Option 2: Run it interactively and type your request when asked
 adk run .
 ```
 
