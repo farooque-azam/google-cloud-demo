@@ -1,0 +1,4 @@
+google-adk[ui]
+google-adk[eval]
+google-genai
+python-multipart

@@ -7,6 +7,7 @@ This project serves as a monorepo for all AI Agent demonstrations. To keep the p
 - There is a single, shared Python virtual environment located at the root of the project: `ai-agent-demos/.venv`.
 - All sub-projects must use this shared virtual environment. 
 - When adding new dependencies for a sub-project, install them into the root `.venv`.
+- **Python Version Requirement:** The ADK 2.0 framework strictly requires Python 3.10 or higher. When setting up the environment, students MUST ensure they use Python 3.11. On Windows with multiple versions installed, this can be done via `py -3.11 -m venv .venv`.
 
 ## 2. Shared Environment Variables
 - **DO NOT** create `.env` files inside sub-project directories.

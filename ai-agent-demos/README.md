@@ -66,12 +66,12 @@ source .venv/bin/activate
 ```
 
 ### 4. Install Dependencies
-With your virtual environment activated, install the required packages:
+With your virtual environment activated, install the required packages using the provided requirements file:
 
 ```bash
-pip install "google-adk[ui]" "google-adk[eval]" google-genai python-multipart
+pip install -r requirements.txt
 ```
-*(Note: The `[ui]` extra and `python-multipart` are required for the Web interface. The `[eval]` extra is required if you want to run automated agent evaluations, as it installs data science libraries like pandas and rouge-score needed to measure agent performance).*
+*(Note: This installs the core ADK, the `[ui]` and `python-multipart` extras required for the Web interface, and the `[eval]` extra required if you want to run automated agent evaluations).*
 
 ### 5. Running the Agents (CLI vs Web UI)
 The Agent Development Kit (ADK) provides two main ways to interact with your agents:
