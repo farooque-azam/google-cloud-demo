@@ -4,3 +4,6 @@
 .adk/
 __pycache__/
 *.evalset.json
+
+# Ignore execution plans
+al_marsoos_agent_plan.md
