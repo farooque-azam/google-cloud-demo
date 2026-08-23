@@ -19,13 +19,23 @@ In this example, we replicate a trip planning scenario:
   - **Academic Note on ADK 2.0:** While the ADK does not have a dedicated `CoordinatorAgent` Python class, the framework natively supports this pattern using the standard `Agent` class. By passing the workers into the `sub_agents` array of the `trip_coordinator`, the ADK automatically injects a `transfer_to_agent` function tool into the coordinator's context. This allows the LLM to dynamically route the conversation to its sub-agents!
 
 ## How to Run
+
+To test this agent in the terminal (CLI):
 ```bash
-# Assuming you are in the ai-agent-demos directory
+# Assuming you are in the ai-agent-demos directory with your venv activated
 cd p5_coordinator
 adk run .
 ```
 You can prompt it with: "I'm starting at my house in downtown and I want to eat pizza." 
 The Coordinator will dynamically route you to the food agent, and once complete, route you to the transport agent.
+
+To view the dynamic routing graph visually, launch the ADK Web UI:
+```bash
+# The Web UI must be run from the parent ai-agent-demos directory
+# so it can detect this module in the dropdown
+adk web --host 127.0.0.1 --allow_origins="*" .
+```
+*(Open http://127.0.0.1:8000 in your browser once the server starts).*
 
 ## Pros & Cons
 

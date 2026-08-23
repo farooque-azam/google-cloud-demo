@@ -4,35 +4,23 @@ This directory contains an interactive agent built with ADK 2.0 that features cu
 n![Single Agent Architecture](https://docs.cloud.google.com/static/architecture/images/choose-design-pattern-agentic-ai-system-single-agent.svg)
 
 
-## Running the Agent
+## How to Run
 
-This agent uses the ADK 2.0 CLI. Ensure your virtual environment is active before running these commands.
-
-### 1. Terminal (Interactive CLI)
-
-To interact with the agent directly in your terminal, use the `adk run` command. The `.` tells ADK to run the agent in the current directory.
-
+To test this agent in the terminal (CLI):
 ```bash
-# Assuming you are starting from the ai-agent-demos directory
+# Assuming you are in the ai-agent-demos directory with your venv activated
 cd p1_single_tools
 adk run .
 ```
 *(Once running, try asking: "What time is it?" or "Calculate 45 * 12")*
 
-### 2. Web UI
-
-To interact with the agent using the visual Web UI, use the `adk web` command.
-
+To view the agent visually, launch the ADK Web UI:
 ```bash
 # The Web UI must be run from the parent ai-agent-demos directory
+# so it can detect this module in the dropdown
 adk web --host 127.0.0.1 --allow_origins="*" .
 ```
-
-*   `--host 127.0.0.1`: Explicitly tells the server to listen only to localhost (avoids Windows firewall popups).
-*   `--allow_origins="*"`: Disables CORS restrictions.
-*   `.`: Points the server to the current directory.
-
-*(Once the server starts, open http://127.0.0.1:8000 in your browser)*
+*(Open http://127.0.0.1:8000 in your browser once the server starts).*
 
 ---
 
