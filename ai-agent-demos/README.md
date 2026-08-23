@@ -132,7 +132,41 @@ adk web --host 127.0.0.1 --allow_origins="*" .
 
 ---
 
-## 4. GenAI SDK Demo (`genai_sdk_demo`)
+## 4. Parallel Agent Pattern (`p3_parallel`)
+**Brief Intro:** This project demonstrates the **Parallel Agent** (Pattern #3) using ADK 2.0. It models a research pipeline where a **News Researcher** and **Document Researcher** work simultaneously, followed by an **Aggregator Agent** that synthesizes their findings.
+
+**Run Instructions:**
+```bash
+# Terminal CLI (Assuming you are in the ai-agent-demos directory)
+cd p3_parallel
+adk run . "Acme Corp"
+
+# Web UI
+# The Web UI must be run from the ai-agent-demos directory
+adk web --host 127.0.0.1 --allow_origins="*" .
+```
+*📖 For a detailed explanation of this project, see: `p3_parallel/WORKFLOW_EXPLANATION.md`*
+
+---
+
+## 5. Coordinator Agent Pattern (`p5_coordinator`)
+**Brief Intro:** This project demonstrates a **Coordinator Pattern** where a central agent manages the conversation and delegates sub-tasks to specialized worker agents based on the user's input.
+
+**Run Instructions:**
+```bash
+# Terminal CLI (Assuming you are in the ai-agent-demos directory)
+cd p5_coordinator
+adk run .
+
+# Web UI
+# The Web UI must be run from the ai-agent-demos directory
+adk web --host 127.0.0.1 --allow_origins="*" .
+```
+*📖 For a detailed explanation of this project, see: `p5_coordinator/WORKFLOW_EXPLANATION.md`*
+
+---
+
+## 6. GenAI SDK Demo (`genai_sdk_demo`)
 **Brief Intro:** Unlike the previous two, this project is built using the raw **`google-genai` Python SDK** *without* the ADK framework. It demonstrates how to manually build an interactive chat loop, maintain conversation history, and register tools from scratch.
 
 **Run Instructions:**
