@@ -1,7 +1,12 @@
+import os
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from agent import root_agent
+from fastapi.middleware.cors import CORSMiddleware
+from google import genai
+from tools import calculate_event_security, fetch_company_knowledge
+
+# Initialize standard Gemini Client
+client = genai.Client()
 
 app = FastAPI()
 
@@ -14,22 +19,28 @@ app.add_middleware(
 
 class ChatRequest(BaseModel):
     message: str
-    session_id: str = "default_session"
-
-@app.get("/")
-def read_root():
-    return {"message": "Al-Marsoos ADK 2.0 Agent API is Running!"}
+    session_id: str = "default"
 
 @app.post("/chat")
 def chat_endpoint(req: ChatRequest):
     try:
-        # Pass the user's message into the ADK root_agent (the Router)
-        # The agent will autonomously route it to the correct sub-agent
-        result = root_agent.run_live(req.message)
-        
-        # ADK returns an object, we extract the text
-        response_text = getattr(result, 'text', str(result))
-        
-        return {"response": response_text}
+        # Create a single, synchronous Gemini model using google-genai
+        # This replaces the complex ADK streaming generator and router
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=req.message,
+            config={
+                'tools': [calculate_event_security, fetch_company_knowledge],
+                'system_instruction': (
+                    "You are the professional Virtual Assistant for Al-Marsoos Security Services. "
+                    "Tailor your security recommendations based on the client's industry. "
+                    "If the user provides an event guest count, use calculate_event_security. "
+                    "If a user asks about licensing, proudly state AMS is Ministry of Interior licensed. "
+                    "You MUST proactively provide a Markdown link to [Contact Us](/contact) when relevant. "
+                    "If asked to contact leadership or for location, use fetch_company_knowledge or provide WhatsApp 0310 6460024."
+                )
+            }
+        )
+        return {"response": response.text}
     except Exception as e:
         return {"error": str(e)}
