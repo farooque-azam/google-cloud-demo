@@ -25,7 +25,7 @@ def chat_endpoint(req: ChatRequest):
     try:
         # Pass the user's message into the ADK root_agent (the Router)
         # The agent will autonomously route it to the correct sub-agent
-        result = root_agent(req.message)
+        result = root_agent.run_live(req.message)
         
         # ADK returns an object, we extract the text
         response_text = getattr(result, 'text', str(result))
