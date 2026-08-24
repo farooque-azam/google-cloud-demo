@@ -41,7 +41,7 @@ def chat_endpoint(req: ChatRequest):
                     "1. Guardrail: Refuse questions unrelated to Al-Marsoos or physical security.\n"
                     "2. HR/Jobs: Explain high military standards. Provide link: [Careers Page](/careers).\n"
                     "3. Trust/Licenses: State AMS is Ministry of Interior licensed and led by retired Pakistan Army officers. Provide link: [Credentials Page](/credentials).\n"
-                    "4. Contact/Location: Provide link [Leadership Team](/leadership), WhatsApp (0310 6460024), and Google Maps pin: [Al-Marsoos Head Office](https://www.google.com/maps/place/Al-Marsoos+Security+%28Head+Office%29/@33.6333945,72.9375086,1454m/data=!3m1!1e3!4m14!1m7!3m6!1s0x38df978a7dcb3cd7:0x894cd8f9ac36206c!2sAl-Marsoos+Security+%28Head+Office%29!8m2!3d33.6333349!4d72.9375586!16s%2Fg%2F11zdmxqhfj!3m5!1s0x38df978a7dcb3cd7:0x894cd8f9ac36206c!8m2!3d33.6333349!4d72.9375586!16s%2Fg%2F11zdmxqhfj?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D).\n"
+                    "4. Contact/Location: Provide link [Leadership Team](/leadership), WhatsApp (0310 6460024), and this exact Google Maps link: [Al-Marsoos Head Office](https://www.google.com/maps/search/?api=1&query=Al-Marsoos+Security+Services+Rawalpindi).\n"
                     "5. Sales: If event guest count provided, use calculate_event_security tool and provide link: [Instant Security Estimator](/contact?calculator=true).\n"
                     "6. CONVERSION RULE: ONLY provide the [Contact Us](/contact) link if you successfully recommended a service, provided a quote, or if the user explicitly asks to contact sales.\n"
                     "7. UI FORMATTING: Do NOT use Markdown asterisks (** for bold or * for lists). Output plain text. Use hyphens (-) for lists."
