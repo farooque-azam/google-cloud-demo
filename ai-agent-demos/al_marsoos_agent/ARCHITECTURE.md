@@ -1,28 +1,33 @@
 # Al-Marsoos AI Agent Architecture
 
-This document outlines the high-level architecture and interaction flow for integrating the ADK 2.0 AI Agent into the Al-Marsoos Security static React website.
+This document outlines the high-level architecture, design choices, and system requirements for the Al-Marsoos Security AI Agent. 
 
-## 1. System Components
+## 1. Architectural Choice: Single Agent vs. Multi-Agent
 
-The architecture is strictly divided into two decoupled systems (The "Face" and the "Brain"):
+During Phase 2, we evaluated a complex Multi-Agent architecture using Google ADK 2.0. However, for Phase 3 (Production), we explicitly pivoted to a **Single Agent Architecture** using the standard google-genai SDK and removed ADK 2.0 entirely.
 
-### A. The Frontend (The "Face")
-*   **Hosting:** GitHub Pages
-*   **Tech Stack:** React (Vite), JavaScript, TailwindCSS
-*   **Role:** Renders the ChatWidget.jsx. It handles the local UI state (displaying "Typing..." animations and chat bubbles). It captures the user's input but contains **zero** AI logic.
-*   **Data Source:** The frontend fetches text content (Services, Leadership, etc.) from a local public/data.json file.
+**Rationale for the Pivot:**
+1. **Streaming Bugs:** The ADK 2.0 multi-agent router natively returns an AsyncGenerator, which was incompatible with our synchronous FastAPI requirement and caused the React frontend to display raw memory addresses.
+2. **Speed & Latency:** Multi-agent routing requires an LLM call just to decide which sub-agent to invoke, doubling response latency. A single agent replies instantly.
+3. **Simplicity:** A single Gemini 2.5 Flash model equipped with a strict 8-point rule system and Python tools is more than capable of handling HR, Sales, and Trust inquiries simultaneously without needing separate personas.
 
-### B. The Backend (The "Brain")
-*   **Hosting:** Google Cloud Run (https://al-marsoos-agent-188364900679.us-central1.run.app)
-*   **Tech Stack:** Python, FastAPI, Google ADK 2.0, Gemini 2.5 Flash
-*   **Role:** Exposes a secure @app.post("/chat") REST API endpoint. It manages the conversation history, processes natural language, executes custom tools, and formats the final response.
-*   **Data Source:** The Python agent uses HTTP requests to read the exact same data.json file hosted on GitHub Pages, ensuring a **Single Source of Truth** for all company knowledge.
+## 2. Requirements
+
+### Functional Requirements (FRs)
+1. **Natural Language Processing:** The system must accurately understand and respond to user queries regarding security services.
+2. **Dynamic Quoting:** The system must calculate event security requirements (guards needed) based on user-provided guest counts using a deterministic mathematical tool.
+3. **Knowledge Retrieval:** The system must dynamically fetch live company data (leadership, services) from the frontend's data.json file.
+4. **Rich UI Navigation:** The system must generate specific Markdown links (e.g., [Contact Us](/contact)) that the frontend parses into clickable buttons.
+
+### Non-Functional Requirements (NFRs)
+1. **Security (Authentication):** The backend must use Google Cloud Vertex AI (Application Default Credentials) in production, completely eliminating hardcoded API keys.
+2. **Resilience (Graceful Degradation):** If the backend crashes or is blocked by CORS, the frontend must not break; it must seamlessly display a fallback WhatsApp link.
+3. **Performance:** The backend API must respond to queries within 3 seconds.
+4. **Maintainability:** The backend rules must be consolidated into a single readable string for easy future modification.
 
 ---
 
-## 2. Structural Diagram (Component Architecture)
-
-This diagram shows the physical components of your architecture and how they connect to each other.
+## 3. Structural Diagram (Component Architecture)
 
 ```mermaid
 flowchart TD
@@ -39,109 +44,71 @@ flowchart TD
 
     subgraph Google Cloud [Backend: Google Cloud Run]
         API[FastAPI POST /chat]:::backend
-        ADK[ADK 2.0 Agent]:::backend
+        GenAI[google-genai SDK]:::backend
         Tools[Python Tools]:::backend
     end
 
-    Gemini((Gemini 2.5 Flash API)):::external
+    Vertex((Vertex AI / Gemini API)):::external
 
     %% Connections
-    UI -- "1. Sends User Message (HTTP POST)" --> API
-    API -- "2. Invokes" --> ADK
-    ADK -- "3. Processes Language" --> Gemini
-    ADK -- "4. Executes" --> Tools
-    Tools -- "5. Fetches Live Data (HTTP GET)" --> JSON
-    
-    %% Response
-    API -. "6. Returns JSON Response" .-> UI
+    UI -- "1. HTTP POST" --> API
+    API -- "2. Invokes" --> GenAI
+    GenAI -- "3. Processes" --> Vertex
+    GenAI -- "4. Executes" --> Tools
+    Tools -- "5. HTTP GET" --> JSON
+    API -. "6. JSON Response" .-> UI
 ```
 
 ---
 
-## 3. Interaction Flow (Sequence Diagram)
-
-When a customer visits the website and types a message, the following sequence occurs seamlessly over the internet:
+## 4. Interaction Flow (Sequence Diagram)
 
 ```mermaid
 sequenceDiagram
     actor Customer
-    participant React as React Website (GitHub Pages)
-    participant FastAPI as Python API (Cloud Run)
-    participant ADK as ADK 2.0 Agent
-    participant Gemini as Google Gemini API
+    participant React as React (GitHub Pages)
+    participant FastAPI as FastAPI (Cloud Run)
+    participant GenAI as Google GenAI SDK
+    participant Vertex as Vertex AI
 
     Customer->>React: Types "I need security for a wedding"
     activate React
     React->>React: Update UI (Show "Typing...")
     
-    %% HTTP POST Request
-    React->>FastAPI: HTTP POST /chat <br/>{"message": "I need security for a wedding"}
+    React->>FastAPI: POST /chat {"message": "..."}
     activate FastAPI
     
-    FastAPI->>ADK: Pass message to Agent
-    activate ADK
+    FastAPI->>GenAI: Apply 8-Point Rule System
+    activate GenAI
     
-    %% Agent Logic
-    ADK->>Gemini: Process natural language
-    activate Gemini
-    Gemini-->>ADK: Request Tool: get_services()
-    deactivate Gemini
+    GenAI->>Vertex: Process natural language
+    activate Vertex
+    Vertex-->>GenAI: Request Tool: fetch_company_knowledge
+    deactivate Vertex
     
-    ADK->>React: HTTP GET /data.json
-    React-->>ADK: Return Services JSON
+    GenAI->>React: GET /data.json
+    React-->>GenAI: Return Services Data
     
-    ADK->>Gemini: Pass Services Data
-    activate Gemini
-    Gemini-->>ADK: Final Response String
-    deactivate Gemini
+    GenAI->>Vertex: Pass Services Data
+    activate Vertex
+    Vertex-->>GenAI: Final Response String
+    deactivate Vertex
     
-    %% HTTP POST Response
-    ADK-->>FastAPI: Return final string
-    deactivate ADK
+    GenAI-->>FastAPI: Return clean string (No Asterisks)
+    deactivate GenAI
     
-    FastAPI-->>React: HTTP 200 OK <br/>{"response": "We offer Event Security..."}
+    FastAPI-->>React: HTTP 200 OK {"response": "..."}
     deactivate FastAPI
     
-    React->>React: Update UI (Display Agent Message)
-    React-->>Customer: Sees response in chat window
+    React->>React: Parse Markdown Links
+    React-->>Customer: Sees formatted response
     deactivate React
 ```
 
 ---
 
-## 4. ADK Agent Specific Behaviors
+## 5. Security & Deployment
 
-Based on our architectural review, the Python ADK 2.0 Agent will be configured with the following specific capabilities:
-
-1.  **Strict Domain Guardrails:** The agent's System Prompt will explicitly forbid it from answering questions unrelated to Al-Marsoos or the security industry, ensuring it remains a professional corporate assistant.
-2.  **Deterministic Business Logic:** A custom Python Tool (`calculate_event_security`) will be provided to the agent to mathematically calculate guard requirements (e.g., guest-to-guard ratios) rather than relying on the LLM to guess the math.
-3.  **Rich UI Navigation:** The agent will be provided with a Site Map in its instructions. It will proactively output Markdown links (e.g., `[Apply Here](/careers)`) which the React frontend is already programmed to convert into clickable navigation buttons.
-
----
-
-## 5. The `POST /chat` Payload Contract
-
-To facilitate the communication shown above, the Frontend and Backend must agree on a strict data format (JSON).
-
-**Request from React (What the Website sends):**
-```json
-{
-  "session_id": "user-12345",
-  "message": "I need security for a wedding"
-}
-```
-*(Note: `session_id` is required so the Python backend can look up the correct conversation history for this specific user before passing it to Gemini).*
-
-**Response from FastAPI (What the Cloud returns):**
-```json
-{
-  "status": "success",
-  "response": "We offer Event Security for weddings. How many guests are you expecting?"
-}
-```
-
-## 6. Next Steps for Implementation
-1.  **Extract Data:** Write the Node.js script in the frontend repo to generate `data.json`.
-2.  **Build API:** Update `al_marsoos_agent/main.py` to include the `POST /chat` endpoint and the ADK Agent logic.
-3.  **Deploy:** Run `gcloud run deploy` to push the new brain to the cloud.
-4.  **Connect:** Update `ChatWidget.jsx` in the React app to `fetch()` the Cloud Run URL.
+* **Local Development:** Uses standard genai.Client() with a .env file containing GEMINI_API_KEY.
+* **Production Deployment:** Uses genai.Client(vertexai=True). Cloud Run utilizes its built-in IAM Service Account to securely access Vertex AI without needing an API key. 
+* **Deployment Command:** gcloud run deploy al-marsoos-agent --source . --region us-central1
