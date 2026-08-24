@@ -50,11 +50,11 @@ We utilized the **Google Agent Development Kit (ADK 2.0)** to implement the **Ro
    - *Deliverable:* `main.py`
    - *Journey:* We wrapped the ADK Agent inside a FastAPI web server, utilizing `Pydantic` for strict payload validation and `CORSMiddleware` to secure the API to the official Al-Marsoos domain.
 
-### 2.5 API Interaction & Security (Post-Deployment)
-Once deployed to Cloud Run, the FastAPI server provides powerful out-of-the-box features:
-- **Interactive Swagger UI:** Appending `/docs` to the URL provides an auto-generated interface to manually test the AI Agent directly from the browser.
-- **Programmatic Access:** The API can be queried via terminal commands (e.g., `curl`) or scripts.
-- **Security Nuance (CORS vs. Auth):** We locked down `CORSMiddleware` to the GitHub Pages domain. However, students must learn that CORS is a *browser-level* security feature (stopping malicious websites). It does not block terminal scripts or `curl`. For enterprise production, a public chat API must implement **API Keys, reCAPTCHA, or Rate Limiting** to prevent Denial of Wallet script attacks.
+4. **API Interaction & Security (Post-Deployment):**
+   - *Journey:* Once deployed to Cloud Run, the FastAPI server provides powerful out-of-the-box features:
+     - **Interactive Swagger UI:** Appending `/docs` to the URL provides an auto-generated interface to manually test the AI Agent directly from the browser.
+     - **Programmatic Access:** The API can be queried via terminal commands (e.g., `curl`) or scripts.
+     - **Security Nuance (CORS vs. Auth):** We locked down `CORSMiddleware` to the GitHub Pages domain. However, students must learn that CORS is a *browser-level* security feature (stopping malicious websites). It does not block terminal scripts or `curl`. For enterprise production, a public chat API must implement **API Keys, reCAPTCHA, or Rate Limiting** to prevent Denial of Wallet script attacks.
 
 ---
 
