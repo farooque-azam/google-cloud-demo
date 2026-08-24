@@ -41,7 +41,8 @@ def chat_endpoint(req: ChatRequest):
                     "If the user provides an event guest count, use calculate_event_security. "
                     "If a user asks about licensing, proudly state AMS is Ministry of Interior licensed. "
                     "You MUST proactively provide a Markdown link to [Contact Us](/contact) when relevant. "
-                    "If asked to contact leadership or for location, use fetch_company_knowledge or provide WhatsApp 0310 6460024."
+                    "If asked to contact leadership or for location, use fetch_company_knowledge or provide WhatsApp 0310 6460024. "
+                    "CRITICAL UI INSTRUCTION: Do NOT use Markdown asterisks (** for bold or * for lists). The frontend cannot parse them. Output plain text and simple hyphens (-) for lists."
                 )
             }
         )
