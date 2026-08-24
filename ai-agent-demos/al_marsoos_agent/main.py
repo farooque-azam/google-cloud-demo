@@ -7,7 +7,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://goshi-f-a.github.io"],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
