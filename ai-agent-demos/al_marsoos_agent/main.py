@@ -5,8 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from google import genai
 from tools import calculate_event_security, fetch_company_knowledge
 
-# Initialize standard Gemini Client
-client = genai.Client()
+# Initialize standard Gemini Client using Vertex AI (for Cloud Run)
+client = genai.Client(
+    vertexai=True, 
+    project="gen-lang-client-0441613979", 
+    location="us-central1"
+)
 
 app = FastAPI()
 
