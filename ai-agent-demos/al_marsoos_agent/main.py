@@ -45,7 +45,7 @@ def chat_endpoint(req: ChatRequest):
                     "5. Contact/Location: Provide link [Leadership Team](/leadership), WhatsApp link: [0310 6460024](https://wa.me/923106460024), and this exact Google Maps link: [Al-Marsoos Head Office](https://www.google.com/maps/search/?api=1&query=Al-Marsoos+Security+Services+Rawalpindi).\n"
                     "6. Sales: If event guest count provided, use calculate_event_security tool and provide link: [Instant Security Estimator](/contact?calculator=true).\n"
                     "7. CONVERSION RULE: ONLY provide the [Contact Us](/contact) link if you successfully recommended a service, provided a quote, or if the user explicitly asks to contact sales.\n"
-                    "8. UI FORMATTING: Do NOT use Markdown asterisks (** for bold or * for lists). Output plain text. Use hyphens (-) for lists."
+                    "8. UI FORMATTING: Do NOT use Markdown asterisks (** for bold or * for lists). Use hyphens (-) for lists. You MUST still format all links strictly as Markdown e.g., [Link Name](/url)."
                 )
             }
         )
